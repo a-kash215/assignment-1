@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include<string.h>
+
+int main() 
+{
+  int A[100];
+  int B[50];
+  int operation;
+  int flag;
+  int n1,n2;
+
+  printf("Enter number of elements in A:");
+  scanf("%d",&n1);
+  printf("Enter number of elements in B:");
+  scanf("%d",&n2);
+
+  printf("Enter the elements in A:");
+  for(int i=0;i<n1;i++)
+  {
+    scanf("%d",&A[i]);
+  }
+ 
+  printf("Enter the elements in B:");
+  for(int j=0;j<n2;j++)
+    {
+      scanf("%d",&B[j]);
+    }
+
+  printf("\nSet A:");
+  printf("{ ");
+  for(int i=0;i<n1;i++)
+  {
+    printf("%d ",A[i]);
+  }
+  printf("}");
+ 
+  printf("\nSet B:");
+  printf("{ ");
+
+  for(int j=0;j<n2;j++)
+  {
+    printf("%d ",B[j]);
+  }
+  printf("}");
+  while(1)
+  {
+    printf("\n\nEnter which operation you want to perform:\n1.Union\n2.Intersection\n3.Difference\n4.Symmetric difference of two sets\n5.Exit");
+    scanf("%d",&operation);
+  
+    switch(operation)
+    {
+
+      case 1:
+      printf("\nUnion:");
+      printf("{ ");
+      for(int i = 0;i < n1;i++)
+      printf("%d ",A[i]);
+      for(int i = 0;i < n2;i++)
+      {
+        for(int j = 0;j < n1;j++)
+        {
+          if(B[i] == A[j])
+          {
+            flag = 1;
+          }
+        }
+        if(flag == 0)
+        {
+          printf("%d ",B[i]);
+        }
+        flag = 0;
+      }
+    
+  
+      printf("}");
+      break;
+
+      case 2:
+      printf("\nIntersection:");
+      printf("{ ");
+      int k=0;
+      int C[100];
+      for(int i = 0;i < n1;i++)
+      {
+        for(int j = 0;j < n2;j++)
+        {
+          if(A[i] == B[j])
+          {
+            C[k]=A[i];
+            k++;
+            break;
+        
+          }
+        }
+      }
+      for(int i=0;i<k;i++)
+      {
+        printf("%d ",C[i]);
+      } 
+    
+      printf("}");
+      break;
+
+      case 3:
+      printf("\nDifference: A-B ");
+      printf("{ ");
+      k=0;
+      for(int i=0;i<n1;i++)
+      {
+        flag=0;
+        for(int j=0;j<n2;j++)
+        {
+          if(A[i]==B[j])
+          {
+            flag=1;
+            break;
+          }
+        }
+        if(flag==0)
+        {
+          C[k]=A[i];
+          k++;
+        }
+      }
+      for(int i=0;i<k;i++)
+      {
+        printf("%d ",C[i]);
+      } 
+      printf("}");
+
+      printf("\nDifference: B-A ");
+      printf("{ ");
+      for(int i=0;i<n1;i++)
+      {
+        flag=0;
+        for(int j=0;j<n2;j++)
+        {
+          if(B[i]==A[j])
+          {
+            flag=1;
+            break;
+          }
+        }
+        if(flag==0)
+        printf("%d ",B[i]);
+      }
+      printf("}");
+      break;
+
+      case 4:
+      printf("\nSymmetric Difference:");
+      k=0;
+      for(int i=0;i<n1;i++)
+      {
+        flag=0;
+        for(int j=0;j<n2;j++)
+        {
+          if(A[i]==B[j])
+          {
+            flag=1;
+            break;
+          }
+        }
+        if(flag==0)
+        {
+          C[k]=A[i];
+          k++;
+        }
+      }
+      for(int i=0;i<n1;i++)
+      {
+        flag=0;
+        for(int j=0;j<n2;j++)
+        {
+          if(B[i]==A[j])
+          {
+            flag=1;
+            break;
+          }
+        }
+        if(flag==0)
+        {
+            C[k]=B[i];
+            k++;
+        }
+      }
+ 
+      printf("\n(A-B)U(B-A): ");
+      printf("{ ");
+      for(int i=0;i<k;i++)
+      {
+        printf("%d ",C[i]);
+      }
+    
+      printf("}");
+      break;
+
+      case 5:
+      printf("THANK YOU!");
+      goto out;
+      break;
+
+      default:
+      printf("invalid operation");
+      break;
+
+    }
+  }out:;
+  return 0;
+}
